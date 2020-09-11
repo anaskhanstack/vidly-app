@@ -18,7 +18,8 @@ const useStyles = makeStyles({
 const Movie = () => {
   const classes = useStyles();
   const [movies, setMovies] = useState("");
-  const { length } = movies;
+  const { length: count } = movies;
+
   useEffect(() => {
     setMovies(getMovies());
   }, []);
@@ -28,12 +29,12 @@ const Movie = () => {
     setMovies(newMovies);
   };
 
-  if (movies.length === 0) {
+  if (count === 0) {
     return <p>There are no movies in the database.</p>;
   }
   return (
     <React.Fragment>
-      <p>Showing {length} movies in the database</p>
+      <p>Showing {count} movies in the database</p>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
