@@ -15,20 +15,19 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Movie() {
+const Movie = () => {
   const classes = useStyles();
-  const [movies, setMovie] = useState();
+  const [movies, setMovies] = useState("");
 
   useEffect(() => {
-    setMovie(getMovies());
+    setMovies(getMovies());
   }, []);
 
-  const handleDelete = (id) => {
-    deleteMovie(id);
-    const movieList = getMovies();
-    setMovie(movieList);
+  const handleDelete = (_id) => {
+    const newMovies = movies.filter((m) => m._id !== _id);
+    setMovies(newMovies);
   };
-  console.log(movies);
+
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
@@ -76,4 +75,6 @@ export default function Movie() {
       </Table>
     </TableContainer>
   );
-}
+};
+
+export default Movie;
