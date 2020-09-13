@@ -8,6 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { getMovies } from "../services/fakeMovieService";
+import Like from "./common/like";
 
 const useStyles = makeStyles({
   table: {
@@ -27,6 +28,16 @@ const Movie = () => {
   const handleDelete = (_id) => {
     const newMovies = movies.filter((m) => m._id !== _id);
     setMovies(newMovies);
+  };
+
+  const handleLike = (movie) => {
+    const addedMovie = [...movies];
+    const index = addedMovie.indexOf(movie);
+
+    movie.like
+      ? (addedMovie[index].like = false)
+      : (addedMovie[index].like = true);
+    setMovies(addedMovie);
   };
 
   if (count === 0) {
@@ -52,24 +63,28 @@ const Movie = () => {
                 <strong>Rate</strong>
               </TableCell>
               <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
 
           {typeof movies === "object"
-            ? movies.map((row) => (
-                <TableBody key={row._id}>
+            ? movies.map((movie) => (
+                <TableBody key={movie._id}>
                   <TableRow>
                     <TableCell component="th" scope="row">
-                      {row.title}
+                      {movie.title}
                     </TableCell>
-                    <TableCell align="right">{row.genre.name}</TableCell>
-                    <TableCell align="right">{row.numberInStock}</TableCell>
-                    <TableCell align="right">{row.dailyRentalRate}</TableCell>
+                    <TableCell align="right">{movie.genre.name}</TableCell>
+                    <TableCell align="right">{movie.numberInStock}</TableCell>
+                    <TableCell align="right">{movie.dailyRentalRate}</TableCell>
+                    <TableCell align="right">
+                      <Like handleLike={handleLike} movie={movie} />
+                    </TableCell>
                     <TableCell align="right">
                       <Button
                         variant="contained"
                         color="secondary"
-                        onClick={() => handleDelete(row._id)}
+                        onClick={() => handleDelete(movie._id)}
                       >
                         Delete
                       </Button>
