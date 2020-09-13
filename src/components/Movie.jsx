@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles, Button } from "@material-ui/core";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
+import { Table, TableBody, TableCell, TableContainer } from "@material-ui/core";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { getMovies } from "../services/fakeMovieService";
 import Like from "./common/like";
+import PagePagination from "./common/pagination";
 
 const useStyles = makeStyles({
   table: {
@@ -19,6 +17,8 @@ const useStyles = makeStyles({
 const Movie = () => {
   const classes = useStyles();
   const [movies, setMovies] = useState("");
+  const [pageSize, setPageSize] = useState(4);
+
   const { length: count } = movies;
 
   useEffect(() => {
@@ -40,13 +40,15 @@ const Movie = () => {
     setMovies(addedMovie);
   };
 
+  const handlePageChange = () => {};
+
   if (count === 0) {
     return <p>There are no movies in the database.</p>;
   }
   return (
     <React.Fragment>
       <p>Showing {count} movies in the database</p>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} style={{ width: "50%" }}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -95,6 +97,7 @@ const Movie = () => {
             : null}
         </Table>
       </TableContainer>
+      <PagePagination itemCount={count} pageSize={pageSize} />
     </React.Fragment>
   );
 };
