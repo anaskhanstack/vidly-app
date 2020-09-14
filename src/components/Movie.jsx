@@ -59,8 +59,13 @@ const Movie = () => {
   };
 
   const handleGenreChange = (genre) => {
-    const movieList = movies.filter((movie) => movie.genre.name === genre);
-    setMoviePage(movieList);
+    if (genre === "All") {
+      const movieList = paginate(movies, currentPage, pageSize);
+      setMoviePage(movieList);
+    } else {
+      const movieList = movies.filter((movie) => movie.genre.name === genre);
+      setMoviePage(movieList);
+    }
   };
   const handlePageChange = (currentPage) => {
     setCurrentPage(currentPage);
