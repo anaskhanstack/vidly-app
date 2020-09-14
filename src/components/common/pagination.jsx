@@ -1,6 +1,7 @@
 import React from "react";
 import Pagination from "@material-ui/lab/Pagination";
 import _ from "lodash";
+import PropTypes from "prop-types";
 
 const PagePagination = ({ itemCount, pageSize, handlePageChange }) => {
   const pageCount = itemCount / pageSize;
@@ -15,6 +16,12 @@ const PagePagination = ({ itemCount, pageSize, handlePageChange }) => {
       onChange={(event, page) => handlePageChange(page)}
     />
   ) : null;
+};
+
+PagePagination.propTypes = {
+  itemCount: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  handlePageChange: PropTypes.func.isRequired,
 };
 
 export default PagePagination;
