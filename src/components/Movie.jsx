@@ -1,21 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-  makeStyles,
-  Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Grid,
-} from "@material-ui/core";
+import { makeStyles, Grid } from "@material-ui/core";
 import { getMovies } from "../services/fakeMovieService";
-import Like from "./common/like";
 import PagePagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
 import ListGroup from "./common/listGroup";
+import MovieTable from "./movieTable";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -87,60 +76,14 @@ const Movie = () => {
           <ListGroup handleGenreChange={handleGenreChange} />
         </Grid>
         <Grid xs={7} item>
-          <p>Showing {count} movies in the database</p>
-          <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>
-                    <strong>Title</strong>
-                  </TableCell>
-                  <TableCell align="right">
-                    <strong>Genre</strong>
-                  </TableCell>
-                  <TableCell align="right">
-                    <strong>Stock</strong>
-                  </TableCell>
-                  <TableCell align="right">
-                    <strong>Rate</strong>
-                  </TableCell>
-                  <TableCell align="right"></TableCell>
-                  <TableCell align="right"></TableCell>
-                </TableRow>
-              </TableHead>
-
-              {typeof moviePage === "object"
-                ? moviePage.map((movie) => (
-                    <TableBody key={movie._id}>
-                      <TableRow>
-                        <TableCell component="th" scope="row">
-                          {movie.title}
-                        </TableCell>
-                        <TableCell align="right">{movie.genre.name}</TableCell>
-                        <TableCell align="right">
-                          {movie.numberInStock}
-                        </TableCell>
-                        <TableCell align="right">
-                          {movie.dailyRentalRate}
-                        </TableCell>
-                        <TableCell align="right">
-                          <Like handleLike={handleLike} movie={movie} />
-                        </TableCell>
-                        <TableCell align="right">
-                          <Button
-                            variant="contained"
-                            color="secondary"
-                            onClick={() => handleDelete(movie._id)}
-                          >
-                            Delete
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    </TableBody>
-                  ))
-                : null}
-            </Table>
-          </TableContainer>
+          {typeof moviePage === "object" ? (
+            <p>Showing {moviePage.length} movies in the database</p>
+          ) : null}
+          <MovieTable
+            movies={moviePage}
+            handleDelete={handleDelete}
+            handleLike={handleLike}
+          />
           <PagePagination
             handlePageChange={handlePageChange}
             itemCount={count}
