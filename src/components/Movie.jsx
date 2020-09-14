@@ -46,6 +46,7 @@ const Movie = () => {
   const handleDelete = (_id) => {
     const newMovies = movies.filter((m) => m._id !== _id);
     setMovies(newMovies);
+    setMoviePage(newMovies);
   };
 
   const handleLike = (movie) => {
