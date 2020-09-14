@@ -7,6 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import { getMovies } from "../services/fakeMovieService";
 import Like from "./common/like";
 import PagePagination from "./common/pagination";
+import { paginate } from "../utils/paginate";
 
 const useStyles = makeStyles({
   table: {
@@ -17,7 +18,8 @@ const useStyles = makeStyles({
 const Movie = () => {
   const classes = useStyles();
   const [movies, setMovies] = useState("");
-  const [pageSize, setPageSize] = useState(4);
+  const [pageSize, setPageSize] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const { length: count } = movies;
 
@@ -40,11 +42,15 @@ const Movie = () => {
     setMovies(addedMovie);
   };
 
-  const handlePageChange = () => {};
+  const handlePageChange = (currentPage) => {
+    setCurrentPage(currentPage);
+  };
 
   if (count === 0) {
     return <p>There are no movies in the database.</p>;
   }
+  const moviePage = paginate(movies, currentPage, pageSize);
+
   return (
     <React.Fragment>
       <p>Showing {count} movies in the database</p>
@@ -69,8 +75,8 @@ const Movie = () => {
             </TableRow>
           </TableHead>
 
-          {typeof movies === "object"
-            ? movies.map((movie) => (
+          {typeof moviePage === "object"
+            ? moviePage.map((movie) => (
                 <TableBody key={movie._id}>
                   <TableRow>
                     <TableCell component="th" scope="row">
@@ -97,7 +103,11 @@ const Movie = () => {
             : null}
         </Table>
       </TableContainer>
-      <PagePagination itemCount={count} pageSize={pageSize} />
+      <PagePagination
+        handlePageChange={handlePageChange}
+        itemCount={count}
+        pageSize={pageSize}
+      />
     </React.Fragment>
   );
 };
