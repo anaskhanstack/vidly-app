@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles, Grid } from "@material-ui/core";
-import { getMovies } from "../services/fakeMovieService";
-import PagePagination from "./common/pagination";
-import { paginate } from "../utils/paginate";
-import ListGroup from "./common/listGroup";
+import { getMovies } from "../../services/fakeMovieService";
+import PagePagination from "../common/pagination";
+import { paginate } from "../../utils/paginate";
+import ListGroup from "../common/listGroup";
 import MovieTable from "./movieTable";
 
 const useStyles = makeStyles((theme) => ({

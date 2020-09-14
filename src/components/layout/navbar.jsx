@@ -15,12 +15,12 @@ const Navbar = () => {
         </Link>
 
         <Link
-          to="/Customers"
+          to="/customers"
           style={{ color: "white", textDecoration: "none" }}
         >
           <Button color="inherit">Customer</Button>
         </Link>
-        <Link to="/Rentals" style={{ color: "white", textDecoration: "none" }}>
+        <Link to="/rentals" style={{ color: "white", textDecoration: "none" }}>
           <Button color="inherit">Rentals</Button>
         </Link>
       </Toolbar>

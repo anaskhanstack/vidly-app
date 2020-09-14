@@ -10,7 +10,8 @@ import {
   Paper,
   makeStyles,
 } from "@material-ui/core";
-import Like from "./common/like";
+import { Link } from "react-router-dom";
+import Like from "../common/like";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,11 +57,20 @@ const MovieTable = (props) => {
               <TableBody key={movie._id}>
                 <TableRow>
                   <TableCell component="th" scope="row">
-                    {movie.title}
+                    <Link to={`/movies/${movie._id}`}>{movie.title}</Link>
                   </TableCell>
-                  <TableCell align="right">{movie.genre.name}</TableCell>
-                  <TableCell align="right">{movie.numberInStock}</TableCell>
-                  <TableCell align="right">{movie.dailyRentalRate}</TableCell>
+                  <TableCell align="right">
+                    <Link></Link>
+                    {movie.genre.name}
+                  </TableCell>
+                  <TableCell align="right">
+                    <Link></Link>
+                    {movie.numberInStock}
+                  </TableCell>
+                  <TableCell align="right">
+                    <Link></Link>
+                    {movie.dailyRentalRate}
+                  </TableCell>
                   <TableCell align="right">
                     <Like handleLike={handleLike} movie={movie} />
                   </TableCell>
