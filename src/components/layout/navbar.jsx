@@ -23,6 +23,9 @@ const Navbar = () => {
         <Link to="/rentals" style={{ color: "white", textDecoration: "none" }}>
           <Button color="inherit">Rentals</Button>
         </Link>
+        <Link to="/login" style={{ color: "white", textDecoration: "none" }}>
+          <Button color="inherit">Login</Button>
+        </Link>
       </Toolbar>
     </AppBar>
   );
